@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "id": "auzz.net-merge",
+  "name": "net-merge",
+  "version": "0.1.0",
+  "author": "auzz",
+  "license": "MIT",
+  "description": "Turn net-merge on and off from the bar, and watch every network adapter's share of the combined speed.",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "Panel.qml"
+  },
+  "barWidget": {
+    "displayName": "net-merge",
+    "description": "Merge Wi-Fi, Ethernet and phone tethers into one faster connection.",
+    "category": "Network",
+    "allowMultiple": false,
+    "defaultSection": "tray",
+    "defaults": {
+      "barLabel": "Icon only",
+      "hideWhenOff": false,
+      "refreshIntervalSec": 5
+    },
+    "schema": [
+      {
+        "key": "barLabel",
+        "type": "enum",
+        "label": "Bar label",
+        "description": "What sits next to the icon while merging.",
+        "options": ["Icon only", "Combined speed"],
+        "defaultValue": "Icon only"
+      },
+      {
+        "key": "hideWhenOff",
+        "type": "boolean",
+        "label": "Hide when off",
+        "description": "Only show the icon while net-merge is merging.",
+        "defaultValue": false
+      },
+      {
+        "key": "refreshIntervalSec",
+        "type": "integer",
+        "label": "Refresh interval (seconds)",
+        "description": "How often the bar icon checks net-merge while the panel is closed. The open panel refreshes every 2 seconds.",
+        "min": 2,
+        "max": 60,
+        "step": 1,
+        "defaultValue": 5
+      }
+    ]
+  }
+}

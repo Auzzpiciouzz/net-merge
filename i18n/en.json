@@ -1,0 +1,37 @@
+{
+  "status.checking": "Checking…",
+  "status.missing": "net-merge is not installed",
+  "status.merging": {
+    "one": "Merging %1 adapter",
+    "other": "Merging %1 adapters"
+  },
+  "status.mergingFor": "%1 · up %2",
+  "status.off": "Off · traffic uses one adapter",
+  "status.trayStopped": "Off · tray not running",
+  "action.turnOn": "Merge all adapters",
+  "action.turnOff": "Stop merging",
+  "hint.trayStart": "Turning it on starts the net-merge tray in the background.",
+  "hint.install": "Install net-merge from net-merge.org, then reopen this panel.",
+  "error.timeout": "net-merge did not answer in time.",
+  "error.failed": "The net-merge command failed.",
+  "stat.down": "Download",
+  "stat.up": "Upload",
+  "stat.connections": "Connections",
+  "section.adapters": "Adapters",
+  "adapter.active": {
+    "one": "%1 conn",
+    "other": "%1 conns"
+  },
+  "adapter.failed": {
+    "one": "%1 failed",
+    "other": "%1 failed"
+  },
+  "adapter.v4": "IPv4 %1",
+  "adapter.v6": "IPv6 %1",
+  "adapter.skipped": "Not used",
+  "adapter.cap": "Mbit/s cap",
+  "ipv6": "IPv6: %1",
+  "autostart.label": "Start at sign-in",
+  "autostart.description": "Launch the net-merge tray when you log in.",
+  "adapter.rates": "↓ %1  ↑ %2 Mbit/s"
+}

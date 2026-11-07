@@ -1,0 +1,90 @@
+#!/bin/bash
+# Helper the panel runs for every net-merge call. It takes fixed sub-commands;
+# adapter names and numbers are checked here and passed to net-merge as argv,
+# never through a shell string.
+#
+#   net-merge-ctl poll [full]   status (+ adapter list and autostart when "full")
+#   net-merge-ctl on            start the tray if needed, then turn merging on
+#   net-merge-ctl off
+#   net-merge-ctl limit <adapter> <Mbit/s>   0 removes the cap
+#   net-merge-ctl autostart on|off
+#
+# `net-merge on` without a running tray does not talk to a tray: it starts
+# system-wide mode in the foreground and blocks. So `on` always makes sure the
+# tray is up first, and every call is wrapped in a timeout.
+
+set -o pipefail
+
+NM=${NET_MERGE_BIN:-net-merge}
+
+tray_running() {
+  pgrep -u "$(id -u)" -f '^(/usr/bin/)?net-merge tray( |$)' >/dev/null 2>&1
+}
+
+need_binary() {
+  command -v "$NM" >/dev/null 2>&1 || { echo "net-merge is not installed" >&2; exit 127; }
+}
+
+start_tray() {
+  if command -v uwsm-app >/dev/null 2>&1; then
+    uwsm-app -- "$NM" tray >/dev/null 2>&1 </dev/null &
+  else
+    setsid -f "$NM" tray >/dev/null 2>&1 </dev/null
+  fi
+  for _ in $(seq 1 50); do
+    tray_running && break
+    sleep 0.1
+  done
+  tray_running || return 1
+  # Give the tray a moment to open its control socket before we talk to it.
+  sleep 1
+}
+
+case "${1:-}" in
+  poll)
+    if ! command -v "$NM" >/dev/null 2>&1; then
+      echo "@@missing"
+      exit 0
+    fi
+    if tray_running; then echo "@@tray 1"; else echo "@@tray 0"; fi
+    echo "@@status"
+    timeout 5 "$NM" status 2>&1
+    echo "@@limits"
+    timeout 5 "$NM" limit 2>&1
+    if [[ ${2:-} == full ]]; then
+      echo "@@list"
+      timeout 5 "$NM" list 2>&1
+      echo "@@autostart"
+      timeout 5 "$NM" autostart status 2>&1
+    fi
+    exit 0
+    ;;
+  on)
+    need_binary
+    if ! tray_running; then
+      start_tray || { echo "could not start the net-merge tray" >&2; exit 1; }
+      # The tray restores the last state it was in, so it may already be on.
+      timeout 5 "$NM" status 2>/dev/null | head -n1 | grep -q '^net-merge is ON' && exit 0
+    fi
+    exec timeout 15 "$NM" on
+    ;;
+  off)
+    need_binary
+    exec timeout 15 "$NM" off
+    ;;
+  limit)
+    need_binary
+    [[ ${2:-} =~ ^[A-Za-z0-9._:@-]{1,32}$ ]] || { echo "invalid adapter name" >&2; exit 2; }
+    [[ ${3:-} =~ ^[0-9]{1,5}$ ]] || { echo "invalid speed" >&2; exit 2; }
+    exec timeout 5 "$NM" limit "$2" "$3"
+    ;;
+  autostart)
+    need_binary
+    [[ ${2:-} == on || ${2:-} == off ]] || { echo "usage: autostart on|off" >&2; exit 2; }
+    exec timeout 5 "$NM" autostart "$2"
+    ;;
+  *)
+    echo "usage: net-merge-ctl poll [full] | on | off | limit <adapter> <Mbit/s> | autostart on|off" >&2
+    exit 2
+    ;;
+esac
