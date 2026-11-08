@@ -17,10 +17,11 @@ You need net-merge 0.3 or newer (see [net-merge.org](https://net-merge.org) for 
 omarchy plugin add https://github.com/Auzzpiciouzz/net-merge --enable
 ```
 
-The widget goes in the tray drawer by default. To move it out next to the network icon:
+The widget goes on the right of the bar by default. To put it right before the network icon, or tuck it into the tray drawer:
 
 ```bash
 omarchy bar move net-merge --section right --before omarchy.network
+omarchy bar move net-merge --section tray
 ```
 
 ## Remove

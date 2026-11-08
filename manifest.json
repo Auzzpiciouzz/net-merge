@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "net-merge",
   "name": "net-merge",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "auzz",
   "license": "MIT",
   "description": "Turn net-merge on and off from the bar, and watch every network adapter's share of the combined speed.",
@@ -17,7 +17,7 @@
     "description": "Merge Wi-Fi, Ethernet and phone tethers into one faster connection.",
     "category": "Network",
     "allowMultiple": false,
-    "defaultSection": "tray",
+    "defaultSection": "right",
     "defaults": {
       "barLabel": "Icon only",
       "hideWhenOff": false,
