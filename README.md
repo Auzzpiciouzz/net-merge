@@ -14,7 +14,7 @@ A bar plugin for [net-merge](https://net-merge.org), which spreads every new con
 You need net-merge 0.3 or newer (see [net-merge.org](https://net-merge.org) for the Arch repo). Then:
 
 ```bash
-omarchy plugin add https://github.com/<you>/net-merge --enable
+omarchy plugin add https://github.com/Auzzpiciouzz/net-merge --enable
 ```
 
 The widget goes in the tray drawer by default. To move it out next to the network icon:
