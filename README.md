@@ -23,6 +23,14 @@ The widget goes in the tray drawer by default. To move it out next to the networ
 omarchy bar move net-merge --section right --before omarchy.network
 ```
 
+## Remove
+
+```bash
+omarchy plugin remove net-merge
+```
+
+This removes only the widget. net-merge itself stays installed. If you turned on "Start at sign-in" and don't want it anymore, run `net-merge autostart off` first.
+
 ## Using it
 
 | Input | Action |
