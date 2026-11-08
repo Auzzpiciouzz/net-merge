@@ -14,13 +14,13 @@ A bar plugin for [net-merge](https://net-merge.org), which spreads every new con
 You need net-merge 0.3 or newer (see [net-merge.org](https://net-merge.org) for the Arch repo). Then:
 
 ```bash
-omarchy plugin add https://github.com/<you>/omarchy-net-merge --enable
+omarchy plugin add https://github.com/<you>/net-merge --enable
 ```
 
 The widget goes in the tray drawer by default. To move it out next to the network icon:
 
 ```bash
-omarchy bar move auzz.net-merge --section right --before omarchy.network
+omarchy bar move net-merge --section right --before omarchy.network
 ```
 
 ## Using it
@@ -36,7 +36,7 @@ omarchy bar move auzz.net-merge --section right --before omarchy.network
 From scripts:
 
 ```bash
-omarchy-shell auzz.net-merge toggleMerging   # also: on, off, status, open, close
+omarchy-shell net-merge toggleMerging   # also: on, off, status, open, close
 ```
 
 ## Settings

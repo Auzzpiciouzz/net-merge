@@ -9,8 +9,8 @@ import "Model.js" as Model
 
 Panel {
   id: root
-  moduleName: "auzz.net-merge"
-  ipcTarget: "auzz.net-merge"
+  moduleName: "net-merge"
+  ipcTarget: "net-merge"
   manageIpc: false
 
   Commons.Translations { id: strings; directory: Qt.resolvedUrl("i18n") }
