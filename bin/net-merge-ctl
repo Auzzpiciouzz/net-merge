@@ -74,7 +74,7 @@ case "${1:-}" in
     ;;
   limit)
     need_binary
-    [[ ${2:-} =~ ^[A-Za-z0-9._:@-]{1,32}$ ]] || { echo "invalid adapter name" >&2; exit 2; }
+    [[ ${2:-} =~ ^[A-Za-z0-9][A-Za-z0-9._:@-]{0,31}$ ]] || { echo "invalid adapter name" >&2; exit 2; }
     [[ ${3:-} =~ ^[0-9]{1,5}$ ]] || { echo "invalid speed" >&2; exit 2; }
     exec timeout 5 "$NM" limit "$2" "$3"
     ;;

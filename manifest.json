@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "net-merge",
   "name": "net-merge",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "auzz",
   "license": "MIT",
   "description": "Turn net-merge on and off from the bar, and watch every network adapter's share of the combined speed.",

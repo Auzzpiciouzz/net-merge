@@ -57,6 +57,16 @@ eno1;rm  v4 up v6 up link down 1 up 1 Mbit/s`
   assert.deepEqual(M.parseLimits('<img/src=x> 5 Mbit/s'), {})
   assert.equal(M.validName("$(reboot)"), false)
 })
+test("names that look like options are refused", () => {
+  assert.equal(M.validName("-h"), false)
+  assert.equal(M.validName("--all"), false)
+  assert.equal(M.validName("-"), false)
+  assert.equal(M.validName("wlan0"), true)
+  assert.equal(M.validName("enp0s20f0u1"), true)
+  assert.equal(M.validName("usb0:1"), true)
+  assert.equal(M.validName("a".repeat(32)), true)
+  assert.equal(M.validName("a".repeat(33)), false)
+})
 test("bounds", () => {
   const many = "net-merge is ON (x)\n" + Array.from({ length: 100 }, (_, i) => `eth${i} v4 up v6 up link down 1e99 up -5 Mbit/s`).join("\n")
   const s = M.parseStatus(many); assert.equal(s.adapters.length, 16); assert.equal(s.adapters[0].down, 1e6); assert.equal(s.adapters[0].up, 0)

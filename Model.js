@@ -6,7 +6,9 @@
 
 var MAX_ADAPTERS = 16
 var MAX_LINE = 400
-var NAME_RE = /^[A-Za-z0-9._:@-]{1,32}$/
+// The first character must be a letter or digit, so a name can never be read
+// as an option ("-x") by net-merge.
+var NAME_RE = /^[A-Za-z0-9][A-Za-z0-9._:@-]{0,31}$/
 
 // Keys that start a new field on a `net-merge status` adapter line.
 var KEYS = { v4: 1, v6: 1, link: 1, down: 1, up: 1, "Mbit/s": 1, via: 1, active: 1, total: 1, w: 1, failed: 1 }
